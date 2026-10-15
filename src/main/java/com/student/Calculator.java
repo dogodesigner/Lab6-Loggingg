@@ -1,20 +1,32 @@
 
 package com.student;
 
-public class Main {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    public static void main(String[] args) {
+public class Calculator {
 
-        Calculator calc = new Calculator();
+    private static final Logger logger =
+            LoggerFactory.getLogger(Calculator.class);
 
-        System.out.println("Addition: " + calc.add(10, 5));
-        System.out.println("Subtraction: " + calc.subtract(10, 5));
-        System.out.println("Multiplication: " + calc.multiply(10, 5));
+    public int add(int a, int b) {
+        return a + b;
+    }
 
-        try {
-            calc.divide(10, 0);
-        } catch (ArithmeticException e) {
-            System.out.println("Caught: " + e.getMessage());
+    public int subtract(int a, int b) {
+        return a - b;
+    }
+
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    public int divide(int a, int b) {
+        if (b == 0) {
+            logger.error("Division by zero: a={}, b={}", a, b);
+            throw new ArithmeticException("Cannot divide by zero");
         }
+
+        return a / b;
     }
 }
